@@ -5,6 +5,8 @@ from django.conf.urls.defaults import *
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    (r'^accounts/', include('registration.urls')),
+
     (r'^quran/', include('quran.urls')), 
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
