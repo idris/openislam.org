@@ -1,14 +1,28 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load i18n %}
 
-{% block content %}
-<form method="post" action=".">
-  {{ form.as_p }}
+{% block h1 %}Log in{% endblock %}
 
-  <input type="submit" value="{% trans 'Log in' %}" />
-  <input type="hidden" name="next" value="{{ next }}" />
+{% block content %}
+{% if user.is_anonymous %}
+<form method="post" action=".">
+    <dl>
+    {% for field in form %}
+        <dt>{{ field.label_tag }}</dt>
+        {% if field.errors %}
+        <dd>{{ field.errors }}</dd>
+        {% endif %}
+        <dd>{{ field }}</dd>
+    {% endfor %}
+    </dl>
+
+    <input type="submit" value="{% trans 'Log in' %}" />
+    <input type="hidden" name="next" value="{{ next|default:'/quran/' }}" />
 </form>
 
-<p>{% trans "Forgot password" %}? <a href="{% url auth_password_reset %}">{% trans "Reset it" %}</a>!</p>
-<p>{% trans "Not member" %}? <a href="{% url registration_register %}">{% trans "Register" %}</a>!</p>
+<p>{% trans 'Forgot your password?' %} <a href="{% url auth_password_reset %}">{% trans 'Reset it' %}</a></p>
+<p>{% trans 'Not a member?' %} <a href="{% url registration_register %}">{% trans 'Register' %}</a></p>
+{% else %}
+<p>{% blocktrans %}You are already logged in as {{ user }}.{% endblocktrans %} <a href="{% url auth_logout %}">{% trans 'Click here to logout.' %}</a></p>
+{% endif %}
 {% endblock %}
