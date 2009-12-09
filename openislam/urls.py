@@ -6,7 +6,7 @@ from django.conf.urls.defaults import *
 
 urlpatterns = patterns('',
     (r'^accounts/', include('registration.urls')),
-
+#    (r'^accounts/$', 'django.views.generic.simple.redirect_to', {'url': '/accounts/login/'}),
     (r'^quran/', include('quran.urls')), 
 
     # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 

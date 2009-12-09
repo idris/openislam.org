@@ -1,1 +1,1 @@
-Account Activation – {{ site }}
+{{ site }} - Account Activation
